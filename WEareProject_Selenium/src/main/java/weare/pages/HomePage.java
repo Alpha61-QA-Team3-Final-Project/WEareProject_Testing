@@ -1,11 +1,10 @@
 package weare.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 
 public class HomePage extends BaseWEarePage {
 
-    public HomePage() {
+    public HomePage(String s) {
         super("");
     }
 

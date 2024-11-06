@@ -2,7 +2,7 @@ package weare.pages;
 
 import org.openqa.selenium.By;
 
-public class LatestPostsPage extends BaseWEarePage {
+public class LatestPostsPage extends HomePage {
 
     public LatestPostsPage() {
         super("/posts");
@@ -23,9 +23,6 @@ public class LatestPostsPage extends BaseWEarePage {
 
     //optional
     private final By registerButton = By.xpath("//a[normalize-space()='REGISTER']");
-    private final By homeLink = By.xpath("//a[normalize-space()='Home']");
-    private final By latestPostsLink = By.xpath("//a[normalize-space()='Latest Posts']");
-    private final By navbarLink = By.xpath("//a[@class='navbar-brand']");
 
     public void clickPublicPostsButton(){
         driver().findElement(publicPostsBrowseButton).click();

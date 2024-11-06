@@ -7,14 +7,14 @@ public enum TestData {
     ADMIN_USERNAME("testadmin"),
     ADMIN_PASSWORD("admin123"),
     ADMIN_EMAIL("admin@gmail.com"),
-    REGISTER_USERNAME("newuser"),
+    REGISTER_USERNAME("newuserthree"),
     REGISTER_PASSWORD("test123"),
     REGISTER_EMAIL("test@gmail.com"),
-    UPDATE_FIRSTNAME("Ivan"),
-    UPDATE_LASTNAME("Ivanov"),
-    UPDATE_BIRTHDAY("1111\t1990"),
-    UPDATE_EMAIL("ivan@gmail.com"),
-    UPDATE_ABOUT_ME("Hello, me name is Ivan and I'm testing this social network.");
+    UPDATE_FIRSTNAME("Daniel"),
+    UPDATE_LASTNAME("Petrov"),
+    UPDATE_BIRTHDAY("1111\t1986"),
+    UPDATE_EMAIL("daniel@gmail.com"),
+    UPDATE_ABOUT_ME("Hello, my name is Daniel and I updated my info.");
 
 
 

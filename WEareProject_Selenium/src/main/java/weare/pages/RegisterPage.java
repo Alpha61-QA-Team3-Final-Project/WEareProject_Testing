@@ -3,7 +3,7 @@ package weare.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class RegisterPage extends BaseWEarePage {
+public class RegisterPage extends HomePage {
 
     public RegisterPage() {
         super("/register");
@@ -17,11 +17,6 @@ public class RegisterPage extends BaseWEarePage {
     //Options for the list????
     private final By categoryList = By.id("category.id");
     private final By registerButton = By.xpath("//input[@value='Register']");
-
-    //optional
-    private final By homeLink = By.xpath("//a[normalize-space()='Home']");
-    private final By latestPostsLink = By.xpath("//a[normalize-space()='Latest Posts']");
-    private final By navbarLink = By.xpath("//a[@class='navbar-brand']");
 
     public void registerUser(String username, String email, String password, String confirmPassword) {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);

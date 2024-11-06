@@ -1,5 +1,6 @@
 package weare.pages;
 
+import org.openqa.selenium.By;
 import testframework.PropertiesManager;
 import testframework.core.BaseWebPage;
 

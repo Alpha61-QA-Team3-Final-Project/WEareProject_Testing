@@ -78,9 +78,8 @@ public class WEareTests extends WEareBaseWebTest {
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickExploreLastPostButton();
-        latestPostsPage.writeComment("This is a comment!");
-        Thread.sleep(5000);
+        latestPostsPage.writeComment("This is a new comment!");
+        Thread.sleep(15000);
     }
-
 
 }

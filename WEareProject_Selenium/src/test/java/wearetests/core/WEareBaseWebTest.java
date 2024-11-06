@@ -18,20 +18,23 @@ public class WEareBaseWebTest extends BaseWebTest {
     protected SignInPage signInPage;
     protected UserHomePage userHomePage;
     protected UserProfilePage userProfilePage;
+    protected SearchPage searchPage;
+
 
 
     @BeforeEach
     public void beforeTests() {
         // perform some code before each test starts
-
         aboutUsPage = new AboutUsPage();
         adminHomePage = new AdminHomePage();
-        homePage = new HomePage();
+        homePage = new HomePage("");
         latestPostsPage = new LatestPostsPage();
         registerPage = new RegisterPage();
         signInPage = new SignInPage();
         userHomePage = new UserHomePage();
         userProfilePage = new UserProfilePage();
+        searchPage = new SearchPage();
+
 
         // Navigate to base page
         driver().get(PropertiesManager.getConfigProperties().getProperty("weareBaseUrl"));

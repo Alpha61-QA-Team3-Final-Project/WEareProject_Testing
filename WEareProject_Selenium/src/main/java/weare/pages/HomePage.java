@@ -47,6 +47,11 @@ public class HomePage extends BaseWEarePage {
         driver().findElement(navbarLink).click();
     }
 
+    public void clickSearchButton(){
+        driver().findElement(searchButton).click();
+    }
+
+
     // There is a bug, not displaying the correct result
 //    public void findProfessional(String profession, String name) {
 //        driverWait().until(ExpectedConditions.visibilityOfElementLocated(professionField)).sendKeys(profession);

@@ -10,6 +10,8 @@ public enum TestData {
     REGISTER_USERNAME("newuserthree"),
     REGISTER_PASSWORD("test123"),
     REGISTER_EMAIL("test@gmail.com"),
+    USER_ACCEPT_CONNECTION_USER("newuserthree"),
+    USER_ACCEPT_CONNECTION_PASSWORD("test123"),
     UPDATE_FIRSTNAME("Daniel"),
     UPDATE_LASTNAME("Petrov"),
     UPDATE_BIRTHDAY("1111\t1986"),

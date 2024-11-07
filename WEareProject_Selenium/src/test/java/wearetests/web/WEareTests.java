@@ -7,6 +7,7 @@ import wearetests.enums.TestData;
 public class WEareTests extends WEareBaseWebTest {
 
     @Test
+    //Faker to be implemented
     public void userRegister() throws InterruptedException {
         homePage.navigate();
         homePage.clickRegister();
@@ -45,7 +46,6 @@ public class WEareTests extends WEareBaseWebTest {
         //No info about assertion and how to check successfully updated profile
     }
 
-
     @Test
     //same locator for like/dislike
     public void userLikesPost() throws InterruptedException {
@@ -79,7 +79,53 @@ public class WEareTests extends WEareBaseWebTest {
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickExploreLastPostButton();
         latestPostsPage.writeComment("This is a new comment!");
-        Thread.sleep(15000);
+        Thread.sleep(5000);
+    }
+
+    @Test
+    //to replace single profile link with list
+    public void userConnectsOtherUser() throws InterruptedException {
+        homePage.navigate();
+        homePage.clickSigIn();
+        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        searchPage.clickSearchButton();
+        searchPage.clickUserProfile();
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void userConnectRequest() throws InterruptedException {
+        homePage.navigate();
+        homePage.clickSigIn();
+        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        searchPage.clickSearchButton();
+        searchPage.clickUserProfile();
+        searchPage.clickConnectLink();
+        Thread.sleep(5000);
+    }
+
+    @Test
+    //Pending connection request required
+    public void userConnectAccept() throws InterruptedException {
+        homePage.navigate();
+        homePage.clickSigIn();
+        signInPage.signIn(TestData.USER_ACCEPT_CONNECTION_USER.getValue(),TestData.USER_ACCEPT_CONNECTION_PASSWORD.getValue());
+        userHomePage.clickPersonalProfile();
+        userHomePage.clickNewFriendRequests();
+        userHomePage.clickApproveRequests();
+        Thread.sleep(5000);
+    }
+
+    @Test
+    public void userDisconnectsWithoutApproval() throws InterruptedException {
+        homePage.navigate();
+        homePage.clickSigIn();
+        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        searchPage.clickSearchButton();
+        Thread.sleep(5000);
+        searchPage.clickUserProfile();
+        searchPage.clickDisconnect();
+        Thread.sleep(5000);
     }
 
 }

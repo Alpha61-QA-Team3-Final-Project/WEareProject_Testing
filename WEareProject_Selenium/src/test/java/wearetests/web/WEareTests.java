@@ -1,8 +1,11 @@
 package wearetests.web;
 
+import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Test;
+import weare.pages.HomePage;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
+
 
 public class WEareTests extends WEareBaseWebTest {
 
@@ -10,9 +13,14 @@ public class WEareTests extends WEareBaseWebTest {
     //Faker to be implemented
     public void userRegister() throws InterruptedException {
         homePage.navigate();
+        homePage.verifyHeaderVisible();
+        homePage.verifyRegisterLinkVisible();
+        //class mb-2 The Easiest Way to Hack the Crisis
         homePage.clickRegister();
+        //Join our community
         registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(),TestData.REGISTER_EMAIL.getValue(),
-                TestData.REGISTER_PASSWORD.getValue(),TestData.REGISTER_PASSWORD.getValue());
+        TestData.REGISTER_PASSWORD.getValue(),TestData.REGISTER_PASSWORD.getValue());
+
         Thread.sleep(5000);
     }
 

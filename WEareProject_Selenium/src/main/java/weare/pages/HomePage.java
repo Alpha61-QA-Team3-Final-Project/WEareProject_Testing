@@ -20,7 +20,7 @@ public class HomePage extends BaseWEarePage {
     private final By latestPostsLink = By.xpath("//a[normalize-space()='Latest Posts']");
     private final By aboutUsLink = By.xpath("//a[normalize-space()='About us']");
     private final By navbarLink = By.xpath("//a[@class='navbar-brand']");
-    private final By header = By.className("mb-2");
+    private static final By header = By.xpath("/html/body/section[1]/div/div/div[1]/p[1]/i");
     private final By professionField = By.id("searchParam1");
     private final By nameField = By.id("searchParam2");
     private final By searchButton = By.xpath("//button[@type='submit']");
@@ -54,50 +54,17 @@ public class HomePage extends BaseWEarePage {
     public void clickSearchButton(){
         driver().findElement(searchButton).click();
     }
-
+    public static By getHeaderLocator(){
+        return header;
+    }
     //Veli asserts
-    public void verifyRegisterLinkVisible() {
-        AssertionUtils.assertElementVisible(driver(), registerLink);
-    }
-    public void verifyHeaderVisible() {
-        AssertionUtils.assertElementVisible(driver(), header);
-    }
-//    public static void assertElementVisible(WebDriver driver, String locatorType, String locatorValue) {
-//        WebElement element;
-//
-//        switch (locatorType.toLowerCase()) {
-//            case "id":
-//                element = driver.findElement(By.id(locatorValue));
-//                break;
-//            case "class":
-//                element = driver.findElement(By.className(locatorValue));
-//                break;
-//            case "css":
-//                element = driver.findElement(By.cssSelector(locatorValue));
-//                break;
-//            case "xpath":
-//                element = driver.findElement(By.xpath(locatorValue));
-//                break;
-//            case "name":
-//                element = driver.findElement(By.name(locatorValue));
-//                break;
-//            case "tag":
-//                element = driver.findElement(By.tagName(locatorValue));
-//                break;
-//            case "linktext":
-//                element = driver.findElement(By.linkText(locatorValue));
-//                break;
-//            case "partiallinktext":
-//                element = driver.findElement(By.partialLinkText(locatorValue));
-//                break;
-//            default:
-//                throw new IllegalArgumentException("Invalid locator type: " + locatorType);
-//        }
-//
-//        if (!element.isDisplayed()) {
-//            throw new AssertionError("Element is not visible as expected.");
-//        }
-    //}
+//    public void verifyRegisterLinkVisible() {
+//        AssertionUtils.assertElementVisible(driver(), registerLink);
+//    }
+//    public void verifyHeaderVisible() {
+//        AssertionUtils.assertElementVisible(driver(), header);
+//    }
+
 
     // There is a bug, not displaying the correct result
 //    public void findProfessional(String profession, String name) {

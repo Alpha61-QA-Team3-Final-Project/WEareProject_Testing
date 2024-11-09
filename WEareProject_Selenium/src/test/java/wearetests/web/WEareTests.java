@@ -2,6 +2,8 @@ package wearetests.web;
 
 import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Test;
+import testframework.DriverManager;
+import testframework.enums.AssertionUtils;
 import weare.pages.HomePage;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
@@ -25,6 +27,7 @@ public class WEareTests extends WEareBaseWebTest {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", HomePage.getHeaderLocator());
         Thread.sleep(5000);
     }
 

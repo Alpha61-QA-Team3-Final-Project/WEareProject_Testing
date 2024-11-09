@@ -55,6 +55,7 @@ public class HomePage extends BaseWEarePage {
         driver().findElement(searchButton).click();
     }
 
+    //Veli asserts
     public void verifyRegisterLinkVisible() {
         AssertionUtils.assertElementVisible(driver(), registerLink);
     }

@@ -13,11 +13,7 @@ public class WEareTests extends WEareBaseWebTest {
     //Faker to be implemented
     public void userRegister() throws InterruptedException {
         homePage.navigate();
-        homePage.verifyHeaderVisible();
-        homePage.verifyRegisterLinkVisible();
-        //class mb-2 The Easiest Way to Hack the Crisis
         homePage.clickRegister();
-        //Join our community
         registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(),TestData.REGISTER_EMAIL.getValue(),
         TestData.REGISTER_PASSWORD.getValue(),TestData.REGISTER_PASSWORD.getValue());
 

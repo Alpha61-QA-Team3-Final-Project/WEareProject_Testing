@@ -3,8 +3,8 @@
 		"_postman_id": "395e971e-c4cc-4213-872d-908b4e29ac95",
 		"name": "WEare Project",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "23754858",
-		"_collection_link": "https://team-3-weareproject.postman.co/workspace/Team-3-WEare_Project-Workspace~f437431d-0fc4-42d4-8a93-309bac56843b/collection/23754858-395e971e-c4cc-4213-872d-908b4e29ac95?action=share&source=collection_link&creator=23754858"
+		"_exporter_id": "37888416",
+		"_collection_link": "https://team-3-weareproject.postman.co/workspace/Team-3-WEare_Project-Workspace~f437431d-0fc4-42d4-8a93-309bac56843b/collection/23754858-395e971e-c4cc-4213-872d-908b4e29ac95?action=share&source=collection_link&creator=37888416"
 	},
 	"item": [
 		{
@@ -370,6 +370,16 @@
 					"name": "Like a post",
 					"event": [
 						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
 							"listen": "test",
 							"script": {
 								"exec": [
@@ -382,19 +392,6 @@
 									"pm.test(\"Validate user liked the post.\", function () {\r",
 									"    pm.expect(jsonData.likes[0].username).eqls(pm.collectionVariables.get(\"username\"));\r",
 									"});\r",
-									"\r",
-									""
-								],
-								"type": "text/javascript",
-								"packages": {}
-							}
-						},
-						{
-							"listen": "prerequest",
-							"script": {
-								"exec": [
-									"\r",
-									"\r",
 									"\r",
 									""
 								],
@@ -1003,18 +1000,7 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"var moment = require('moment');",
-							"var pastDate = pm.variables.replaceIn(\"{{$randomDatePast}}\")",
-							"pastDate = moment(pastDate).format((\"YYYY-MM-DD\"));",
-							"",
-							"var moment = require('moment');",
-							"var memberDate = pm.variables.replaceIn(\"{{$randomDatePast}}\")",
-							"memberDate = moment(memberDate).format((\"DD/MM/YYYY\"));",
-							"",
-							"pm.collectionVariables.set(\"random_memberDate\", memberDate)",
-							"pm.collectionVariables.set(\"random_pastDate\", pastDate)",
-							"pm.collectionVariables.set(\"random_city\", _.random(1,25))",
-							"pm.collectionVariables.set(\"random_number\", _.random(1,10))"
+							""
 						]
 					}
 				},
@@ -1257,7 +1243,6 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.collectionVariables.set(\"random_city\", _.random(1,25))",
 							""
 						]
 					}
@@ -1267,7 +1252,7 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
+							"pm.test(\"Status status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
 							"});",
 							""
@@ -1653,18 +1638,7 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"var moment = require('moment');",
-							"var pastDate = pm.variables.replaceIn(\"{{$randomDatePast}}\")",
-							"pastDate = moment(pastDate).format((\"YYYY-MM-DD\"));",
-							"",
-							"var moment = require('moment');",
-							"var memberDate = pm.variables.replaceIn(\"{{$randomDatePast}}\")",
-							"memberDate = moment(memberDate).format((\"DD/MM/YYYY\"));",
-							"",
-							"pm.collectionVariables.set(\"random_memberDate\", memberDate)",
-							"pm.collectionVariables.set(\"random_pastDate\", pastDate)",
-							"pm.collectionVariables.set(\"random_city\", _.random(1,25))",
-							"pm.collectionVariables.set(\"random_number\", _.random(1,10))"
+							""
 						]
 					}
 				},
@@ -1673,11 +1647,9 @@
 					"script": {
 						"type": "text/javascript",
 						"exec": [
-							"pm.test(\"Status code is 200\", function () {",
+							"pm.test(\"Status status code is 200\", function () {",
 							"    pm.response.to.have.status(200);",
-							"});",
-							"var user=pm.collectionVariables.get(\"username\");",
-							"var pass=pm.collectionVariables.get(\"password\");"
+							"});"
 						]
 					}
 				}

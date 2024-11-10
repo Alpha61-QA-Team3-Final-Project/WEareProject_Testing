@@ -14,7 +14,7 @@ public class LatestPostsPage extends HomePage {
     private final By categoryBrowseButton = By.xpath("//input[@value='Browse']");
     private final By publicPostsBrowseButton = By.xpath("//div[@class='row']//div[1]//form[1]//input[1]");
     //same locator for like/dislike
-    private final By lastPostLikeButton = By.xpath("//input[@id='submit-val68']");
+    private static final By lastPostLikeButton = By.xpath("//input[@id='submit-val68']");
     private final By exploreLastPostButton = By.xpath("//body//section[@class='" +
             "ftco-section ftco-candidates ftco-candidates-2 bg-light']//div[@class='row']//div[@class='row']" +
             "//div[1]//div[1]//div[2]//p[3]//a[1]");
@@ -39,5 +39,8 @@ public class LatestPostsPage extends HomePage {
     public void writeComment(String comment){
         driver().findElement(commentField).sendKeys(comment);
         driver().findElement(postCommentButton).click();
+    }
+    public static By getLikeButtonLocator(){
+        return lastPostLikeButton;
     }
 }

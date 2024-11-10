@@ -1,10 +1,7 @@
 package weare.pages;
 
-import org.junit.jupiter.api.Assertions;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
-import testframework.enums.AssertionUtils;
+
 
 public class HomePage extends BaseWEarePage {
 
@@ -20,7 +17,7 @@ public class HomePage extends BaseWEarePage {
     private final By latestPostsLink = By.xpath("//a[normalize-space()='Latest Posts']");
     private final By aboutUsLink = By.xpath("//a[normalize-space()='About us']");
     private final By navbarLink = By.xpath("//a[@class='navbar-brand']");
-    private static final By header = By.xpath("/html/body/section[1]/div/div/div[1]/p[1]/i");
+    private static final By logoutHomePage = By.xpath("//a[normalize-space()='LOGOUT']");
     private final By professionField = By.id("searchParam1");
     private final By nameField = By.id("searchParam2");
     private final By searchButton = By.xpath("//button[@type='submit']");
@@ -54,8 +51,8 @@ public class HomePage extends BaseWEarePage {
     public void clickSearchButton(){
         driver().findElement(searchButton).click();
     }
-    public static By getHeaderLocator(){
-        return header;
+    public static By getLogoutHomePageLocator(){
+        return logoutHomePage;
     }
     //Veli asserts
 //    public void verifyRegisterLinkVisible() {

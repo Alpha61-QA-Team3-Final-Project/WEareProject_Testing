@@ -17,6 +17,7 @@ public class RegisterPage extends HomePage {
     //Options for the list????
     private final By categoryList = By.id("category.id");
     private final By registerButton = By.xpath("//input[@value='Register']");
+    private static final By covidMessage = By.xpath("//h1[contains(text(),'Would you like to make a difference in the time of')]");
 
     public void registerUser(String username, String email, String password, String confirmPassword) {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);
@@ -25,6 +26,10 @@ public class RegisterPage extends HomePage {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(confirmPasswordField)).sendKeys(confirmPassword);
 //        driverWait().until(ExpectedConditions.visibilityOfElementLocated(categoryList)).click();
         driver().findElement(registerButton).click();
+    }
+
+    public static By getCovidMessage(){
+        return covidMessage;
     }
 
 }

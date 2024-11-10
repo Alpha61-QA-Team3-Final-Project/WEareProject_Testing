@@ -13,8 +13,8 @@ public class UserHomePage extends HomePage{
     private final By addNewPostLink = By.xpath("//a[contains(text(),'Add New')]");
     private final By logoutLink = By.xpath("//a[normalize-space()='LOGOUT']");
     private final By newFriendRequestsLink = By.xpath("//input[@value='New Friend Requsts']");
-    private final By approveRequestsLink = By.xpath("//input[@value='Approve Request']");
-
+    private static final By approveRequestsLink = By.xpath("//input[@value='Approve Request']");
+    private static final By youAreLoggedOutMessage = By.xpath("//i[normalize-space()='You have been logged out.']");
 
     // Actions
     public void clickPersonalProfile(){
@@ -37,6 +37,12 @@ public class UserHomePage extends HomePage{
         driver().findElement(approveRequestsLink).click();
     }
 
+    public static By getYouAreLoggedOutMessage(){
+        return youAreLoggedOutMessage;
+    }
+    public static By getApproveRequestsLink(){
+        return approveRequestsLink;
+    }
 
 
 

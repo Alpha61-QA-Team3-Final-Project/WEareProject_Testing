@@ -1,10 +1,9 @@
 package wearetests.web;
 
-import org.apache.logging.log4j.core.util.Assert;
 import org.junit.jupiter.api.Test;
 import testframework.DriverManager;
-import testframework.enums.AssertionUtils;
-import weare.pages.HomePage;
+import weare.pages.*;
+import wearetests.core.AssertionUtils;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
 
@@ -18,7 +17,8 @@ public class WEareTests extends WEareBaseWebTest {
         homePage.clickRegister();
         registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(),TestData.REGISTER_EMAIL.getValue(),
         TestData.REGISTER_PASSWORD.getValue(),TestData.REGISTER_PASSWORD.getValue());
-
+        //assertion works
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", RegisterPage.getCovidMessage());
         Thread.sleep(5000);
     }
 
@@ -27,7 +27,8 @@ public class WEareTests extends WEareBaseWebTest {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
-        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", HomePage.getHeaderLocator());
+        //assertion works
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", HomePage.getLogoutHomePageLocator());
         Thread.sleep(5000);
     }
 
@@ -37,6 +38,8 @@ public class WEareTests extends WEareBaseWebTest {
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
         userHomePage.clickLogout();
+        //assertion works
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", UserHomePage.getYouAreLoggedOutMessage());
         Thread.sleep(5000);
     }
 
@@ -49,6 +52,7 @@ public class WEareTests extends WEareBaseWebTest {
         userProfilePage.clickEditProfile();
         userProfilePage.editProfile(TestData.UPDATE_FIRSTNAME.getValue(),TestData.UPDATE_LASTNAME.getValue(),
                 TestData.UPDATE_BIRTHDAY.getValue(),TestData.UPDATE_EMAIL.getValue(),TestData.UPDATE_ABOUT_ME.getValue());
+        //assertion to be added
         Thread.sleep(5000);
         //No info about assertion and how to check successfully updated profile
     }
@@ -62,6 +66,8 @@ public class WEareTests extends WEareBaseWebTest {
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickLikeButton();
+        //probably this assertion?
+        AssertionUtils.assertElementSelected(DriverManager.getDriver(), LatestPostsPage.getLikeButtonLocator());
         Thread.sleep(5000);
     }
 
@@ -74,6 +80,8 @@ public class WEareTests extends WEareBaseWebTest {
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickLikeButton();
+        //probably this assertion?
+        AssertionUtils.assertElementDeselected(DriverManager.getDriver(), LatestPostsPage.getLikeButtonLocator());
         Thread.sleep(5000);
     }
 
@@ -86,6 +94,7 @@ public class WEareTests extends WEareBaseWebTest {
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickExploreLastPostButton();
         latestPostsPage.writeComment("This is a new comment!");
+        //assertion to be added
         Thread.sleep(5000);
     }
 
@@ -97,6 +106,8 @@ public class WEareTests extends WEareBaseWebTest {
         signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
+        //assertion works
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", SearchPage.getSentFriendRequest());
         Thread.sleep(5000);
     }
 
@@ -108,6 +119,8 @@ public class WEareTests extends WEareBaseWebTest {
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
         searchPage.clickConnectLink();
+        //assertion works
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", SearchPage.getSentFriendRequest());
         Thread.sleep(5000);
     }
 
@@ -120,6 +133,8 @@ public class WEareTests extends WEareBaseWebTest {
         userHomePage.clickPersonalProfile();
         userHomePage.clickNewFriendRequests();
         userHomePage.clickApproveRequests();
+        //
+        AssertionUtils.assertElementSelected(DriverManager.getDriver(), UserHomePage.getApproveRequestsLink());
         Thread.sleep(5000);
     }
 
@@ -132,7 +147,8 @@ public class WEareTests extends WEareBaseWebTest {
         Thread.sleep(5000);
         searchPage.clickUserProfile();
         searchPage.clickDisconnect();
+        //probably this assertion?
+        AssertionUtils.assertElementDeselected(DriverManager.getDriver(), SearchPage.getConnectLink());
         Thread.sleep(5000);
     }
-
 }

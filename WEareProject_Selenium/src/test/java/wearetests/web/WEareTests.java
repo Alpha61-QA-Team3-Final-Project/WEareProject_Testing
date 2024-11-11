@@ -1,11 +1,16 @@
 package wearetests.web;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
+import org.openqa.selenium.support.ui.ExpectedConditions;
 import testframework.DriverManager;
 import weare.pages.*;
 import wearetests.core.AssertionUtils;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
+import static wearetests.enums.TestData.*;
 
 
 public class WEareTests extends WEareBaseWebTest {
@@ -15,8 +20,8 @@ public class WEareTests extends WEareBaseWebTest {
     public void userRegister() throws InterruptedException {
         homePage.navigate();
         homePage.clickRegister();
-        registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(),TestData.REGISTER_EMAIL.getValue(),
-        TestData.REGISTER_PASSWORD.getValue(),TestData.REGISTER_PASSWORD.getValue());
+        registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(), TestData.REGISTER_EMAIL.getValue(),
+                TestData.REGISTER_PASSWORD.getValue(), TestData.REGISTER_PASSWORD.getValue());
         //assertion works
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", RegisterPage.getCovidMessage());
         Thread.sleep(5000);
@@ -26,17 +31,17 @@ public class WEareTests extends WEareBaseWebTest {
     public void userLogin() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(USER_USERNAME.getValue(), USER_PASSWORD.getValue());
         //assertion works
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", HomePage.getLogoutHomePageLocator());
-        Thread.sleep(5000);
+        Thread.sleep(15000);
     }
 
     @Test
     public void userLogout() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLogout();
         //assertion works
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", UserHomePage.getYouAreLoggedOutMessage());
@@ -47,11 +52,11 @@ public class WEareTests extends WEareBaseWebTest {
     public void updateUserProfile() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickPersonalProfile();
         userProfilePage.clickEditProfile();
-        userProfilePage.editProfile(TestData.UPDATE_FIRSTNAME.getValue(),TestData.UPDATE_LASTNAME.getValue(),
-                TestData.UPDATE_BIRTHDAY.getValue(),TestData.UPDATE_EMAIL.getValue(),TestData.UPDATE_ABOUT_ME.getValue());
+        userProfilePage.editProfile(TestData.UPDATE_FIRSTNAME.getValue(), TestData.UPDATE_LASTNAME.getValue(),
+                TestData.UPDATE_BIRTHDAY.getValue(), TestData.UPDATE_EMAIL.getValue(), TestData.UPDATE_ABOUT_ME.getValue());
         //assertion to be added
         Thread.sleep(5000);
         //No info about assertion and how to check successfully updated profile
@@ -62,7 +67,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userLikesPost() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickLikeButton();
@@ -76,7 +81,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userDislikesPost() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickLikeButton();
@@ -89,7 +94,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userCommentsPost() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickExploreLastPostButton();
@@ -103,7 +108,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userConnectsOtherUser() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
         //assertion works
@@ -115,7 +120,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userConnectRequest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
         searchPage.clickConnectLink();
@@ -129,7 +134,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userConnectAccept() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_ACCEPT_CONNECTION_USER.getValue(),TestData.USER_ACCEPT_CONNECTION_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_ACCEPT_CONNECTION_USER.getValue(), TestData.USER_ACCEPT_CONNECTION_PASSWORD.getValue());
         userHomePage.clickPersonalProfile();
         userHomePage.clickNewFriendRequests();
         userHomePage.clickApproveRequests();
@@ -142,7 +147,7 @@ public class WEareTests extends WEareBaseWebTest {
     public void userDisconnectsWithoutApproval() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
-        signInPage.signIn(TestData.USER_USERNAME.getValue(),TestData.USER_PASSWORD.getValue());
+        signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         Thread.sleep(5000);
         searchPage.clickUserProfile();

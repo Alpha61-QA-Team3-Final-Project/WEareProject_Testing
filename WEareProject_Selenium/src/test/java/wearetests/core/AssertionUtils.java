@@ -56,5 +56,8 @@ public class AssertionUtils {
             throw new AssertionError("Expected element to be deselected, but it is selected.");
         }
     }
+    public static boolean isTextVisible(WebDriver driver, String text) {
+        return driver.getPageSource().contains(text);
+    }
 }
 

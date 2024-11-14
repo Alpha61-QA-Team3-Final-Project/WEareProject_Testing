@@ -5,11 +5,14 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import testframework.Driver;
 import testframework.DriverManager;
 import weare.pages.*;
 import wearetests.core.AssertionUtils;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
+
+import static weare.pages.LatestPostsPage.*;
 import static wearetests.enums.TestData.*;
 
 
@@ -17,7 +20,7 @@ public class WEareTests extends WEareBaseWebTest {
 
     @Test
     //Faker to be implemented
-    public void userRegister() throws InterruptedException {
+    public void userRegisterTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickRegister();
         registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(), TestData.REGISTER_EMAIL.getValue(),
@@ -28,7 +31,7 @@ public class WEareTests extends WEareBaseWebTest {
     }
 
     @Test
-    public void userLogin() throws InterruptedException {
+    public void userLoginTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(USER_USERNAME.getValue(), USER_PASSWORD.getValue());
@@ -38,18 +41,18 @@ public class WEareTests extends WEareBaseWebTest {
     }
 
     @Test
-    public void userLogout() throws InterruptedException {
+    public void userLogoutTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLogout();
-        //assertion works
+        //Assert
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", UserHomePage.getYouAreLoggedOutMessage());
         Thread.sleep(5000);
     }
 
     @Test
-    public void updateUserProfile() throws InterruptedException {
+    public void updateUserProfileTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
@@ -57,42 +60,51 @@ public class WEareTests extends WEareBaseWebTest {
         userProfilePage.clickEditProfile();
         userProfilePage.editProfile(TestData.UPDATE_FIRSTNAME.getValue(), TestData.UPDATE_LASTNAME.getValue(),
                 TestData.UPDATE_BIRTHDAY.getValue(), TestData.UPDATE_EMAIL.getValue(), TestData.UPDATE_ABOUT_ME.getValue());
-        //assertion to be added
+        //Assert
         Thread.sleep(5000);
-        //No info about assertion and how to check successfully updated profile
+        AssertionUtils.isTextVisible(DriverManager.getDriver(), "Profile updated successfully.");
+
     }
 
     @Test
-    //same locator for like/dislike
-    public void userLikesPost() throws InterruptedException {
+    public void userLikesPostTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickLikeButton();
+        String likeButtonValue = latestPostsPage.getLikeButtonValue();
 
-        //probably this assertion?
-        AssertionUtils.assertElementEnabled(DriverManager.getDriver(), LatestPostsPage.getLikeButtonLocator());
-        Thread.sleep(5000);
+        if ("Like".equals(likeButtonValue)) {
+            AssertionUtils.assertEquals("The value of the like button should be 'Like'", likeButtonValue, "Like");
+        } else {
+            throw new AssertionError("Unexpected value for the button: " + likeButtonValue);
+        }
+
+//        Thread.sleep(5000);
     }
 
     @Test
-    //same locator for like/dislike
-    public void userDislikesPost() throws InterruptedException {
+    public void userDislikesPostTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
         latestPostsPage.clickPublicPostsButton();
-        latestPostsPage.clickLikeButton();
-        //probably this assertion?
-        AssertionUtils.assertElementEnabled(DriverManager.getDriver(), LatestPostsPage.getLikeButtonLocator());
-        Thread.sleep(5000);
+        String likeButtonValue = latestPostsPage.getLikeButtonValue();
+
+        if ("Dislike".equals(likeButtonValue)) {
+            AssertionUtils.assertEquals("The value of the like button should be 'Dislike'", likeButtonValue, "Dislike");
+        } else {
+            throw new AssertionError("Unexpected value for the button: " + likeButtonValue);
+        }
+
+//        Thread.sleep(5000);
     }
 
     @Test
-    public void userCommentsPost() throws InterruptedException {
+    public void userCommentsPostTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
@@ -100,55 +112,65 @@ public class WEareTests extends WEareBaseWebTest {
         latestPostsPage.clickPublicPostsButton();
         latestPostsPage.clickExploreLastPostButton();
         latestPostsPage.writeComment();
-        //wtf??
-        //Thread.sleep(3000);
+
         latestPostsPage.clickShowCommentsButton();
+//        String uniqueCommentText = "This is a new comment " + commentCounter;
+//        String actualCommentText = latestPostsPage.getComment();
+        Thread.sleep(5000);
+//        AssertionUtils.assertEquals("The comment text should match", comment, actualCommentText);
         AssertionUtils.isTextVisible(DriverManager.getDriver(), LatestPostsPage.getComment());
         Thread.sleep(5000);
+
     }
 
     @Test
-    //to replace single profile link with list
-    public void userConnectsOtherUser() throws InterruptedException {
+    public void userConnectsOtherUserTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
-        //assertion works
-        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", SearchPage.getSentFriendRequest());
-        Thread.sleep(5000);
+
+        //Assert
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", SearchPage.getConnectLink());
+//        Thread.sleep(5000);
     }
 
     @Test
-    public void userConnectRequest() throws InterruptedException {
+    public void userConnectRequestTest() throws InterruptedException {
         homePage.navigate();
+//        homePage.clickRegister();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
         searchPage.clickConnectLink();
-        //assertion works
+
+        //Assert
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath", SearchPage.getSentFriendRequest());
-        Thread.sleep(5000);
+//        Thread.sleep(5000);
     }
 
     @Test
     //Pending connection request required
-    public void userConnectAccept() throws InterruptedException {
+    public void userConnectAcceptTest() throws InterruptedException {
         homePage.navigate();
+//        homePage.clickRegister();
+//        registerPage.registerUser(TestData.REGISTER_USERNAME.getValue(), TestData.REGISTER_EMAIL.getValue(),
+//                TestData.REGISTER_PASSWORD.getValue(), TestData.REGISTER_PASSWORD.getValue());
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_ACCEPT_CONNECTION_USER.getValue(), TestData.USER_ACCEPT_CONNECTION_PASSWORD.getValue());
         userHomePage.clickPersonalProfile();
         userHomePage.clickNewFriendRequests();
         userHomePage.clickApproveRequests();
-        //
-        //AssertionUtils.assertElementSelected(DriverManager.getDriver(), UserHomePage.getApproveRequestsLink());
-        Thread.sleep(5000);
+
+        //Assert
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(),"xpath", UserHomePage.getApproveRequestsLink());
+//        Thread.sleep(5000);
     }
 
     @Test
-    public void userDisconnectsWithoutApproval() throws InterruptedException {
+    public void userDisconnectsTest() throws InterruptedException {
         homePage.navigate();
         homePage.clickSigIn();
         signInPage.signIn(TestData.USER_USERNAME.getValue(), TestData.USER_PASSWORD.getValue());
@@ -156,8 +178,9 @@ public class WEareTests extends WEareBaseWebTest {
         Thread.sleep(5000);
         searchPage.clickUserProfile();
         searchPage.clickDisconnect();
-        //probably this assertion?
-        AssertionUtils.assertElementDeselected(DriverManager.getDriver(), SearchPage.getConnectLink());
-        Thread.sleep(5000);
+
+        //Assert
+        AssertionUtils.assertElementVisible(DriverManager.getDriver(),"xpath", SearchPage.getConnectLink());
+//        Thread.sleep(5000);
     }
 }

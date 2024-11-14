@@ -18,7 +18,7 @@ public enum TestData {
     UPDATE_LASTNAME("Petrov"),
     UPDATE_BIRTHDAY("11111986"),
     UPDATE_EMAIL("daniel@gmail.com"),
-    UPDATE_ABOUT_ME("Hello, my name is Daniel and I updated my info.");
+    UPDATE_ABOUT_ME("Updated: Hello, my name is Daniel and I updated my info.");
 
     private final String value;
 

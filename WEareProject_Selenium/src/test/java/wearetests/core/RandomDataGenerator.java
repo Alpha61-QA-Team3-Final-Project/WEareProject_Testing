@@ -1,11 +1,11 @@
 package wearetests.core;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import wearetests.enums.TestData;
 
 import java.util.Random;
 
 public class RandomDataGenerator {
-
     public static String generateRandomString(int length) {
         String alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         Random random = new Random();
@@ -18,6 +18,7 @@ public class RandomDataGenerator {
 
         return result.toString();
     }
+
 
     public static String generateUsername() {
         return generateRandomString(8);

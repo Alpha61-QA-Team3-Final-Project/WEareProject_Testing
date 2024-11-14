@@ -59,5 +59,11 @@ public class AssertionUtils {
     public static boolean isTextVisible(WebDriver driver, String text) {
         return driver.getPageSource().contains(text);
     }
+
+    public static void assertEquals(String message, String actual, String expected) {
+        if (!actual.equals(expected)) {
+            throw new AssertionError(message + " - Expected: " + expected + ", but got: " + actual);
+        }
+    }
 }
 

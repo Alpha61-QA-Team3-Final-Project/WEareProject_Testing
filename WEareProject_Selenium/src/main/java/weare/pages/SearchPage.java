@@ -24,6 +24,7 @@ public class SearchPage extends HomePage{
     private final By profileLink = By.xpath("//a[contains(text(), 'See Profile')]");
     private static By connectLink = By.xpath("//input[@value='connect']");
     private static final By disconnectLink = By.xpath("//input[@value='disconnect']");
+//    private static final By connectButton = By.xpath("//input[@value='connect']");
     private static final By sentFriendRequest = By.xpath("//div[normalize-space()='Good job! You have send friend request!']");
 
 
@@ -39,6 +40,9 @@ public class SearchPage extends HomePage{
         driver().findElement(disconnectLink).click();
     }
 
+//    public static By getConnectButton() {
+//        return connectButton;
+//    }
     public static By getSentFriendRequest() {
         return sentFriendRequest;
     }

@@ -1,5 +1,6 @@
 package base;
 
+import com.weare.JSONRequests;
 import com.weare.RandomDataGenerator;
 import io.restassured.RestAssured;
 import io.restassured.authentication.PreemptiveBasicAuthScheme;
@@ -208,6 +209,67 @@ public class BaseTestSetup {
         //Взимaме ид-то от джейсън отговора
         int id = response.jsonPath().getInt("[0].id");
         CONNECTION_ID = String.valueOf(id);
+    }
+
+    public static Response createComment() {
+        baseURI = BASE_URL + COMMENT_ENDPOINT;
+
+//        String commentRequestBody = String.format(COMMENT_BODY, POST_ID, USER_ID);
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE)
+                .body(JSONRequests.COMMENT_BODY).when().log().all()
+                .post(baseURI);
+
+        String commentId = response.jsonPath().getString("commentId");
+        System.out.println("Extracted commentId: " + commentId);
+
+        return response;
+    }
+    public static Response getComment() {
+        baseURI = BASE_URL + GET_COMMENTS + "176";
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE)
+                .get(baseURI);
+
+        System.out.println("Response: " + response.getBody().asString());
+
+        return response;
+    }
+    public static Response editComment(String commentId, String updatedCommentBody) {
+        baseURI = BASE_URL + String.format(COMMENT_ENDPOINT, POST_ID, commentId);
+
+        String commentRequestBody = String.format(COMMENT_BODY, POST_ID, updatedCommentBody);
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE)
+                .body(commentRequestBody)
+                .put(baseURI);
+
+        System.out.println("Response: " + response.getBody().asString());
+
+        return response;
+    }
+    public static Response deleteComment(String commentId) {
+
+        baseURI = BASE_URL + String.format(COMMENT_ENDPOINT, POST_ID, commentId);
+
+        Response response = given()
+                .contentType(ContentType.JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE)
+                .delete(baseURI);
+
+        System.out.println("Response: " + response.getStatusCode() + " - " + response.getBody().asString());
+
+        return response;
     }
 
 }

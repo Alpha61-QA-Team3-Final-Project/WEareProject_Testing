@@ -1,7 +1,6 @@
 package com.weare;
 
-import static com.weare.Constants.EDITED_POST_CONTENT;
-import static com.weare.Constants.POST_DESCRIPTION;
+import static com.weare.Constants.*;
 
 public class JSONRequests {
     public static final String REGISTRATION_BODY = "{\n" +
@@ -21,11 +20,14 @@ public class JSONRequests {
             " \"public\": true\n" +
             "}", POST_DESCRIPTION);
 
-    public static final String COMMENT_BODY = "{\n" +
-            "  \"content\": \"%s\",\n" +
-            "  \"postId\": %s,\n" +
-            "  \"userId\": %s\n" +
-            "}";
+    public static String COMMENT_BODY = String.format(
+            "{\n" +
+                    "  \"commentId\": 0,\n" +
+                    "  \"content\": \"%s\",\n" +
+                    "  \"deletedConfirmed\": true,\n" +
+                    "  \"postId\": %s,\n" +
+                    "  \"userId\": %s\n" +
+                    "}", COMMENT_DESCRIPTION, POST_ID, USER_ID);
 
 
     public static final String PROFILE_POST = "{\n" +

@@ -41,9 +41,9 @@ public class AdminTests extends WEareBaseWebTest {
         homePage.navigate();
         homePage.clickRegister();
         registerPage.registerUser(TestData.ADMIN_USERNAME.getValue(), TestData.EMAIL.getValue(),
-                TestData.REGISTER_PASSWORD.getValue(), TestData.REGISTER_PASSWORD.getValue());
+                TestData.ADMIN_PASSWORD.getValue(), TestData.ADMIN_PASSWORD.getValue());
         homePage.clickSigIn();
-        signInPage.signIn(TestData.ADMIN_USERNAME.getValue(), TestData.REGISTER_PASSWORD.getValue());
+        signInPage.signIn(TestData.ADMIN_USERNAME.getValue(), TestData.ADMIN_PASSWORD.getValue());
         userHomePage.clickLogout();
 
         //Assert

@@ -20,7 +20,6 @@ public class PostsTests extends WEareBaseWebTest {
         homePage.clickSigIn();
         signInPage.signIn(TestData.REGISTER_USERNAME.getValue(), TestData.REGISTER_PASSWORD.getValue());
         userHomePage.clickLatestPosts();
-        latestPostsPage.clickOnPostLikeButton();
         latestPostsPage.clickNewPublicPostButton();
         latestPostsPage.createNewPublicPost();
 

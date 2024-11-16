@@ -20,8 +20,6 @@ public class HomePage extends BaseWEarePage {
     private final By addNewPostButton = By.xpath("//a[contains(text(),'Add New')]");
     private final By navbarLink = By.xpath("//a[@class='navbar-brand']");
     private static final By logoutHomePage = By.xpath("//a[normalize-space()='LOGOUT']");
-    private final By professionField = By.id("searchParam1");
-    private final By nameField = By.id("searchParam2");
     private final By searchButton = By.xpath("//button[@type='submit']");
 
 

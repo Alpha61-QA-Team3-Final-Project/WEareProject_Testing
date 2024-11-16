@@ -17,12 +17,9 @@ public class UserProfilePage extends HomePage{
     private final By firstName = By.id("nameE");
     private final By lastName = By.id("lastnameE");
     private final By birthday = By.id("birthDayE");
-    // Select
     private final By gender = By.id("selectE");
     private final By userEmail = By.id("emailE");
     private final By userInfo = By.id("publicinfoE");
-    // Select
-    private final By city = By.id("selectC");
     private final By updateMyProfileButton = By.xpath("//button[contains(text(),'Update My')]");
 
 

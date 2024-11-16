@@ -1,13 +1,8 @@
 package weare.pages;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import testframework.DriverManager;
-
-import java.time.Duration;
-
 
 public class LatestPostsPage extends HomePage {
 
@@ -16,13 +11,9 @@ public class LatestPostsPage extends HomePage {
     }
 
     //Locators
-    //Options for the list????
-    private final By categoryList = By.id("name");
-    private final By categoryBrowseButton = By.xpath("//input[@value='Browse']");
     private final By seeUserProfileButton = By.xpath("//body//section[@class='ftco-section ftco-candidates ftco-candidates-2 bg-light']" +
             "//div[@class='row']//div[@class='row']//div[1]//div[1]//div[2]//p[3]//a[2]");
-
-    //Posts
+    //Posts locators
     private final By publicPostsBrowseButton = By.xpath("//div[@class='col-lg-4 sidebar']//div[1]//form[1]//input[1]");
     private final By postVisibilityField = By.xpath("//select[@id='StringListId' and @name='public']");
     private final By publicVisibilityField = By.xpath("//option[@value='true' and text()='Public post']");
@@ -39,8 +30,7 @@ public class LatestPostsPage extends HomePage {
     private final By deletePostFieldOption = By.xpath("//option[@value='true' and text()='Delete post']");
     private final By deletePostButton = By.xpath("//input[@value='Submit']");
     private final By deleteSuccessMessage = By.xpath("//h1[@class='mb-3 bread']");
-
-    //Comments
+    //Comments locators
     private final By commentField = By.id("message");
     private final By postCommentButton = By.xpath("//input[@value='Post Comment']");
     private final By showComments = By.className("show-comments");
@@ -52,18 +42,19 @@ public class LatestPostsPage extends HomePage {
     private final By deleteCommentOption = By.xpath("//option[@value='true' and text()='Delete comment']");
     private final By deleteButtonSubmitButton = By.xpath("//input[@value='Submit']");
     private final By deleteCommentSuccessMessage = By.xpath("//h1[@class='mb-3 bread']");
-    //optional
-    private final By registerButton = By.xpath("//a[normalize-space()='REGISTER']");
-
     public static String comment = "This is a new comment";
     public static String editedComment = "This is edited comment";
     public static String publicPost = "This is a public post";
     public static String updatedPost = "This is a updated post";
+    //optional;
+    private final By registerButton = By.xpath("//a[normalize-space()='REGISTER']");
 
+    //Actions
     //Users
     public void clickSeeProfileButton() {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(seeUserProfileButton)).click();
     }
+
     //Posts
     public void clickNewPublicPostButton() {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(newPostButton)).click();

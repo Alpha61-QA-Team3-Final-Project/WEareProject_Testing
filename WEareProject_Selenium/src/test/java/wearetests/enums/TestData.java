@@ -3,12 +3,9 @@ package wearetests.enums;
 import static wearetests.core.RandomDataGenerator.*;
 
 public enum TestData {
-//    USER_USERNAME("teamthree"),
     USER_PASSWORD("test123"),
-//    USER_EMAIL("test@gmail.com"),
     ADMIN_USERNAME(getRandomString(4)+"admin"),
     ADMIN_PASSWORD("admin123"),
-//    ADMIN_EMAIL("admin@gmail.com"),
     REGISTER_USERNAME(getRandomString(8)),
     REGISTER_PASSWORD("test123"),
     EMAIL(generateEmail()),

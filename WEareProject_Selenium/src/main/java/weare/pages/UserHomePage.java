@@ -32,6 +32,7 @@ public class UserHomePage extends HomePage {
     }
 
     public void clickNewFriendRequests() {
+        driver().scrollToElement(newFriendRequestsLink);
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(newFriendRequestsLink)).click();
     }
 

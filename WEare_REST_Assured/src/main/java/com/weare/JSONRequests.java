@@ -20,14 +20,11 @@ public class JSONRequests {
             " \"public\": true\n" +
             "}", POST_DESCRIPTION);
 
-    public static String COMMENT_BODY = String.format(
-            "{\n" +
-                    "  \"commentId\": 0,\n" +
-                    "  \"content\": \"%s\",\n" +
-                    "  \"deletedConfirmed\": true,\n" +
-                    "  \"postId\": %s,\n" +
-                    "  \"userId\": %s\n" +
-                    "}", COMMENT_DESCRIPTION, POST_ID, USER_ID);
+    public static final String COMMENT_BODY = "{\n" +
+            "  \"content\": \"%s\",\n" +
+            "  \"postId\": %s,\n" +
+            "  \"userId\": %s\n" +
+            "}";
 
 
     public static final String PROFILE_POST = "{\n" +

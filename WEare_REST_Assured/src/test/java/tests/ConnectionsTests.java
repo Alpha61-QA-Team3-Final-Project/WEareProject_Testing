@@ -9,14 +9,14 @@ import org.testng.Assert;
 
 public class ConnectionsTests extends BaseTestSetup {
 
-    Response response;
-
     @Test
     public void sendConnectionTest() {
         createAndRegisterUserReceiver();
         createAndRegisterUser();
         loginUser();
-        response = sendRequest();
+
+        Response response = sendRequest();
+
         Assert.assertEquals(response.statusCode(), 200, "Expected status code to be 200");
         Assert.assertEquals(response.getBody().asString(), Constants.RANDOM_USERNAME + " send friend request to "
                 + Constants.USERNAME_RECEIVER, "Expected message");
@@ -30,11 +30,11 @@ public class ConnectionsTests extends BaseTestSetup {
         sendRequest();
         loginUserReceiver();
         showReceivedRequests();
-        response = approveRequest();
+
+        Response response = approveRequest();
+
         Assert.assertEquals(response.statusCode(), 200, "Expected status code to be 200");
         Assert.assertEquals(response.getBody().asString(), Constants.USERNAME_RECEIVER + " approved request of "
                 + Constants.RANDOM_USERNAME, "Expected message");
     }
-
-
 }

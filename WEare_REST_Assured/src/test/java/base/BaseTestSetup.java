@@ -1,9 +1,7 @@
 package base;
 
-import com.weare.JSONRequests;
 import com.weare.RandomDataGenerator;
 import io.restassured.RestAssured;
-import io.restassured.authentication.PreemptiveBasicAuthScheme;
 import io.restassured.config.EncoderConfig;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
@@ -19,7 +17,6 @@ import static io.restassured.RestAssured.given;
 
 public class BaseTestSetup {
     protected RequestSpecification request;
-    static String sessionCookie;
 
     @BeforeEach
     public void setUp() {
@@ -39,7 +36,6 @@ public class BaseTestSetup {
     protected static ValidatableResponse loginUser() {
         baseURI = BASE_URL + AUTHENTICATE_ENDPOINT;
 
-        //тва е предварителна базова аутентикация от рест ашурд
         RestAssured.authentication = RestAssured.preemptive().basic(RANDOM_USERNAME, USER_PASSWORD);
 
         ValidatableResponse responseBody = RestAssured.given()
@@ -50,7 +46,6 @@ public class BaseTestSetup {
                 .then()
                 .statusCode(302);
 
-        // взимаме си кукито от джейсъна и си го плькваме навсякъде после в респонс бодито
         COOKIE_VALUE = responseBody.extract().cookies().get("JSESSIONID");
         System.out.println("Extracted COOKIE: " + COOKIE_VALUE);
         return responseBody;
@@ -69,7 +64,6 @@ public class BaseTestSetup {
                 .body(registrationBody)
                 .post(baseURI);
 
-        //взимаме си ид-то на учъра от джейсъна
         USER_ID = response.getBody().asString().split(" ")[6];
 
         return response;
@@ -206,30 +200,30 @@ public class BaseTestSetup {
                 .cookie("JSESSIONID", COOKIE_VALUE_RECEIVER)
                 .get();
 
-        //Взимaме ид-то от джейсън отговора
         int id = response.jsonPath().getInt("[0].id");
         CONNECTION_ID = String.valueOf(id);
     }
 
     public static Response createComment() {
+
         baseURI = BASE_URL + COMMENT_ENDPOINT;
 
-//        String commentRequestBody = String.format(COMMENT_BODY, POST_ID, USER_ID);
+        String commentBody = String.format(COMMENT_BODY, COMMENT_DESCRIPTION, POST_ID, USER_ID);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .header("Accept", "*/*")
-                .cookie("JSESSIONID", COOKIE_VALUE)
-                .body(JSONRequests.COMMENT_BODY).when().log().all()
+                .cookies("JSESSIONID", COOKIE_VALUE)
+                .body(commentBody)
                 .post(baseURI);
 
-        String commentId = response.jsonPath().getString("commentId");
-        System.out.println("Extracted commentId: " + commentId);
+        COMMENT_ID = response.jsonPath().getString("commentId");
 
         return response;
     }
+
     public static Response getComment() {
-        baseURI = BASE_URL + GET_COMMENTS + "176";
+        baseURI = String.format(SHOW_CREATED_COMMENTS, COMMENT_ID);
 
         Response response = given()
                 .contentType(ContentType.JSON)
@@ -237,39 +231,46 @@ public class BaseTestSetup {
                 .cookie("JSESSIONID", COOKIE_VALUE)
                 .get(baseURI);
 
-        System.out.println("Response: " + response.getBody().asString());
-
-        return response;
+        return given()
+                .contentType(ContentType.JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE)
+                .get(baseURI);
     }
-    public static Response editComment(String commentId, String updatedCommentBody) {
-        baseURI = BASE_URL + String.format(COMMENT_ENDPOINT, POST_ID, commentId);
 
-        String commentRequestBody = String.format(COMMENT_BODY, POST_ID, updatedCommentBody);
+    public static Response editComment() {
+        baseURI = String.format(BASE_URL + EDITED_COMMENT, COMMENT_ID);
 
         Response response = given()
                 .contentType(ContentType.JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
-                .body(commentRequestBody)
                 .put(baseURI);
-
-        System.out.println("Response: " + response.getBody().asString());
-
         return response;
     }
-    public static Response deleteComment(String commentId) {
 
-        baseURI = BASE_URL + String.format(COMMENT_ENDPOINT, POST_ID, commentId);
+    public static Response deleteComment() {
+
+        baseURI = BASE_URL + DELETE_COMMENT;
 
         Response response = given()
-                .contentType(ContentType.JSON)
                 .header("Accept", "*/*")
+                .contentType(ContentType.JSON)
                 .cookie("JSESSIONID", COOKIE_VALUE)
+                .queryParam("commentId", COMMENT_ID)
                 .delete(baseURI);
 
-        System.out.println("Response: " + response.getStatusCode() + " - " + response.getBody().asString());
-
         return response;
     }
 
+    protected static Response likeComment() {
+        baseURI = String.format(BASE_URL + LIKED_COMMENT, COMMENT_ID);
+
+        Response response = RestAssured.given()
+                .cookies("JSESSIONID", COOKIE_VALUE)
+                .contentType(ContentType.JSON)
+                .post(baseURI);
+
+        return response;
+    }
 }

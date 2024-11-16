@@ -3,7 +3,7 @@ package weare.pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 
-public class UserHomePage extends HomePage{
+public class UserHomePage extends HomePage {
 
     public UserHomePage() {
         super("");
@@ -19,35 +19,31 @@ public class UserHomePage extends HomePage{
     private static final By youAreLoggedOutMessage = By.xpath("//i[normalize-space()='You have been logged out.']");
 
     // Actions
-    public void clickPersonalProfile(){
-        driver().findElement(personalProfileLink).click();
+    public void clickPersonalProfile() {
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(personalProfileLink)).click();
     }
 
-    public void clickAddNewPost(){
-        driver().findElement(addNewPostLink).click();
+    public void clickAddNewPost() {
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(addNewPostLink)).click();
     }
 
-    public void clickLogout(){
-        driver().findElement(logoutLink).click();
+    public void clickLogout() {
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(logoutLink)).click();
     }
 
-    public void clickNewFriendRequests(){
-        driverWait().until(ExpectedConditions.visibilityOfElementLocated(newFriendRequestsLink));
-        driver().findElement(newFriendRequestsLink).click();
+    public void clickNewFriendRequests() {
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(newFriendRequestsLink)).click();
     }
 
-    public void clickApproveRequests(){
-        driverWait().until(ExpectedConditions.visibilityOfElementLocated(approveRequestsLink));
-        driver().findElement(approveRequestsLink).click();
+    public void clickApproveRequests() {
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(approveRequestsLink)).click();
     }
-    public static By getYouAreLoggedOutMessage(){
+
+    public static By getYouAreLoggedOutMessage() {
         return youAreLoggedOutMessage;
     }
-    public static By getApproveRequestsLink(){
+
+    public static By getApproveRequestsLink() {
         return approvedRequestMessage;
     }
-
-
-
-
 }

@@ -21,6 +21,7 @@ public class Endpoints {
                 "&name=" + UNIQUE_NAME;
         public static final String LIKED_COMMENT = "/api/comment/auth/likesUp?commentId=" + "%s";
         public static final String DELETE_COMMENT = "/api/comment/auth/manager";
+        public static final String GET_COMMENTS = "/api/comment/byPost?postId=";
         public static final String LIKE_POST = "/api/post/auth/likesUp?postId=" + "%s";
         public static final String EDIT_POST = "/api/post/auth/editor";
         public static final String API_USERS_AUTH = "/api/users/auth/";

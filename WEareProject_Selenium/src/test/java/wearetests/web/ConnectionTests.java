@@ -5,6 +5,7 @@ import testframework.DriverManager;
 import weare.pages.SearchPage;
 import weare.pages.UserHomePage;
 import wearetests.core.AssertionUtils;
+import wearetests.core.RandomDataGenerator;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
 
@@ -53,8 +54,9 @@ public class ConnectionTests extends WEareBaseWebTest {
         //User1
         homePage.navigate();
         homePage.clickRegister();
-        String username = "randomUsernameUsername";
+        String username = RandomDataGenerator.getRandomString(6);
         String password = TestData.REGISTER_PASSWORD.getValue();
+
         registerPage.registerUser(username, TestData.EMAIL.getValue(), password, password);
         homePage.clickSigIn();
         signInPage.signIn(username, password);
@@ -63,12 +65,11 @@ public class ConnectionTests extends WEareBaseWebTest {
         //User2
         homePage.navigate();
         homePage.clickRegister();
-        String username2 = "randomUsernameTwoUsername";
-        String password2 = TestData.REGISTER_PASSWORD.getValue();
+        String username2 = RandomDataGenerator.getRandomString(6);
 
-        registerPage.registerUser(username2, TestData.EMAIL.getValue(), password2, password2);
+        registerPage.registerUser(username2, TestData.EMAIL.getValue(), password, password);
         homePage.clickSigIn();
-        signInPage.signIn(username2, password2);
+        signInPage.signIn(username2, password);
         searchPage.clickSearchButton();
         searchPage.clickSecondProfileLink();
         searchPage.clickConnectLink();
@@ -92,7 +93,8 @@ public class ConnectionTests extends WEareBaseWebTest {
         //User 1
         homePage.navigate();
         homePage.clickRegister();
-        String username = "randomUsernameCreationRandom";
+        String username = RandomDataGenerator.getRandomString(6);
+
         String password = TestData.REGISTER_PASSWORD.getValue();
         registerPage.registerUser(username, TestData.EMAIL.getValue(), password, password);
         homePage.clickSigIn();
@@ -103,12 +105,11 @@ public class ConnectionTests extends WEareBaseWebTest {
         homePage.navigate();
         homePage.clickRegister();
 
-        String username2 = "usernameCreationRandom";
-        String password2 = TestData.REGISTER_PASSWORD.getValue();
+        String username2 = RandomDataGenerator.getRandomString(6);
 
-        registerPage.registerUser(username2, TestData.EMAIL.getValue(), password2, password2);
+        registerPage.registerUser(username2, TestData.EMAIL.getValue(), password, password);
         homePage.clickSigIn();
-        signInPage.signIn(username2, password2);
+        signInPage.signIn(username2, password);
         searchPage.clickSearchButton();
         searchPage.clickSecondProfileLink();
         searchPage.clickConnectLink();
@@ -126,6 +127,7 @@ public class ConnectionTests extends WEareBaseWebTest {
         searchPage.clickSearchButton();
         searchPage.clickUserProfile();
         searchPage.clickDisconnect();
+
         //Assert
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath",
                 SearchPage.getConnectLink());

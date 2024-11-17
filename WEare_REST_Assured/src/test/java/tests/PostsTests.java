@@ -16,9 +16,14 @@ public class PostsTests extends BaseTestSetup {
         loginUser();
         Response response = createPost();
 
+        String postID = response.jsonPath().getString("postId");
+        String postContent = response.jsonPath().getString("content");
+
         //Assert
         Assert.assertEquals(200, response.statusCode(), "Expected status code to be 200");
-        Assert.assertEquals(response.getBody().jsonPath().getString("content"), POST_DESCRIPTION, "Response body content does not match the expected.");
+        Assert.assertNotNull(postID, "Post ID should not be null");
+        Assert.assertEquals(postContent, POST_DESCRIPTION,
+                String.format("Post content should be %s", POST_DESCRIPTION));
     }
 
     @Test

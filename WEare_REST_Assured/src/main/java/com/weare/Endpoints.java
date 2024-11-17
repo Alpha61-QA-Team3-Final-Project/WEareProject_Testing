@@ -11,8 +11,6 @@ public class Endpoints {
         public static final String COMMENT_ENDPOINT = "/api/comment/auth/creator";
         public static final String CREATE_POST_ENDPOINT = "/api/post/auth/creator";
         public static final String AUTHENTICATE_ENDPOINT = "/authenticate";
-        public static final String CREATE_SKILL_ENDPOINT = "/api/skill/create";
-        public static final String SKILL_ENDPOINT = "/api/skill";
         public static final String SHOW_CREATED_COMMENTS = BASE_URL + "/api/comment/single?commentId=" + "%s";
         public static final String DELETE_POSTS = "/api/post/auth/manager";
         public static final String SEND_CONNECTION_REQUEST_ENDPOINT = "/api/auth/request";

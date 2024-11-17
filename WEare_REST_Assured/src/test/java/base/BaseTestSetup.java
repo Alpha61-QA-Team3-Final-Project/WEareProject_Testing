@@ -28,8 +28,8 @@ public class BaseTestSetup {
         RestAssured.baseURI = BASE_URL;
 
         request = RestAssured.given()
-                .header("Accept", "application/json")
-                .header("Content-Type", "application/json");
+                .header("Accept", APPLICATION_JSON)
+                .header("Content-Type", APPLICATION_JSON);
 
     }
 
@@ -57,7 +57,8 @@ public class BaseTestSetup {
         RANDOM_USERNAME = RandomDataGenerator.getRandomString(8);
         RANDOM_EMAIL = RandomDataGenerator.getRandomEmail();
 
-        String registrationBody = String.format(REGISTRATION_BODY, USER_PASSWORD, RANDOM_EMAIL, USER_PASSWORD, RANDOM_USERNAME);
+        String registrationBody = String.format(REGISTRATION_BODY, USER_PASSWORD, RANDOM_EMAIL, USER_PASSWORD,
+                RANDOM_USERNAME);
 
         Response response = given()
                 .contentType(APPLICATION_JSON)
@@ -72,10 +73,10 @@ public class BaseTestSetup {
     protected static Response updateUserProfile(String name) {
         baseURI = BASE_URL + API_USERS_AUTH + USER_ID + "/personal";
 
-        String profileBody = String.format(PROFILE_BODY, USER_ID, RANDOM_USERNAME, RANDOM_EMAIL);
+        String profileBody = String.format(PROFILE_BODY, USER_ID, RANDOM_USERNAME, RANDOM_EMAIL, RANDOM_USERNAME);
 
         return given()
-                .contentType(ContentType.JSON)
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .queryParam("name", name)
                 .cookie("JSESSIONID", COOKIE_VALUE)
@@ -87,11 +88,11 @@ public class BaseTestSetup {
         baseURI = BASE_URL + CREATE_POST_ENDPOINT;
 
         Response response = given().
-                contentType(ContentType.JSON).
-                header("Accept", "*/*").
-                cookie("JSESSIONID", COOKIE_VALUE).
-                body(POST_BODY).when().log().all().
-                post(baseURI);
+                contentType(APPLICATION_JSON)
+                .header("Accept", "*/*")
+                .cookie("JSESSIONID", COOKIE_VALUE).
+                body(POST_BODY)
+                .post(baseURI);
 
         POST_ID = response.jsonPath().getString("postId");
         System.out.println("Extracted postId: " + POST_ID);
@@ -113,7 +114,7 @@ public class BaseTestSetup {
         return RestAssured.given().
                 cookies("JSESSIONID", COOKIE_VALUE).
                 baseUri(baseURI).
-                contentType(ContentType.JSON).
+                contentType(APPLICATION_JSON).
                 queryParam("postId", POST_ID).
                 body(POST_EDIT).
                 put(baseURI);
@@ -141,9 +142,10 @@ public class BaseTestSetup {
 
         String requestBody = String.format(SEND_CONNECTION_REQ_BODY, USER_ID_RECEIVER, USERNAME_RECEIVER);
 
-        return given().contentType(ContentType.JSON).header("Accept", "*/*")
+        return given().contentType(APPLICATION_JSON)
+                .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
-                .queryParam("principal", USERNAME)
+                .queryParam("principal", RANDOM_USERNAME)
                 .body(requestBody)
                 .post(baseURI);
     }
@@ -151,7 +153,8 @@ public class BaseTestSetup {
     protected static Response approveRequest() {
         baseURI = BASE_URL + CONNECTION_REQUEST_ENDPOINT + USER_ID_RECEIVER + CONNECTION_REQUEST_APPROVE_ENDPOINT;
 
-        return given().contentType(ContentType.JSON).header("Accept", "*/*")
+        return given().contentType(APPLICATION_JSON)
+                .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE_RECEIVER)
                 .queryParam("requestId", CONNECTION_ID)
                 .post(baseURI);
@@ -160,18 +163,18 @@ public class BaseTestSetup {
     protected static void loginUserReceiver() {
         baseURI = BASE_URL + AUTHENTICATE_ENDPOINT;
 
-        RestAssured.authentication = RestAssured.preemptive().basic(USERNAME_RECEIVER, PASSWORD_RECEIVER);
+        RestAssured.authentication = RestAssured.preemptive().basic(USERNAME_RECEIVER, USER_PASSWORD);
 
-        ValidatableResponse responseBody = RestAssured.given()
+        ValidatableResponse responseBody =
+                given()
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .queryParam("username", USERNAME_RECEIVER)
-                .queryParam("password", PASSWORD_RECEIVER)
+                .queryParam("password", USER_PASSWORD)
                 .post(baseURI)
                 .then()
                 .statusCode(302);
 
         COOKIE_VALUE_RECEIVER = responseBody.extract().cookies().get("JSESSIONID");
-        System.out.println("Extracted COOKIE Receiver: " + COOKIE_VALUE);
     }
 
     protected static Response createAndRegisterUserReceiver() {
@@ -180,7 +183,8 @@ public class BaseTestSetup {
         USERNAME_RECEIVER = RandomDataGenerator.getRandomString(8);
         EMAIL_RECEIVER = RandomDataGenerator.getRandomEmail();
 
-        String registrationBody = String.format(REGISTRATION_BODY, PASSWORD_RECEIVER, EMAIL_RECEIVER, PASSWORD_RECEIVER, USERNAME_RECEIVER);
+        String registrationBody = String.format(REGISTRATION_BODY, USER_PASSWORD, EMAIL_RECEIVER, USER_PASSWORD,
+                USERNAME_RECEIVER);
 
         Response response = given()
                 .contentType(APPLICATION_JSON)
@@ -195,7 +199,8 @@ public class BaseTestSetup {
     public void showReceivedRequests() {
         baseURI = BASE_URL + CONNECTION_REQUEST_ENDPOINT + USER_ID_RECEIVER + REQUEST;
 
-        Response response = given().contentType(ContentType.JSON)
+        Response response = given()
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE_RECEIVER)
                 .get();
@@ -211,7 +216,7 @@ public class BaseTestSetup {
         String commentBody = String.format(COMMENT_BODY, COMMENT_DESCRIPTION, POST_ID, USER_ID);
 
         Response response = given()
-                .contentType(ContentType.JSON)
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookies("JSESSIONID", COOKIE_VALUE)
                 .body(commentBody)
@@ -225,14 +230,9 @@ public class BaseTestSetup {
     public static Response getComment() {
         baseURI = String.format(SHOW_CREATED_COMMENTS, COMMENT_ID);
 
-        Response response = given()
-                .contentType(ContentType.JSON)
-                .header("Accept", "*/*")
-                .cookie("JSESSIONID", COOKIE_VALUE)
-                .get(baseURI);
 
         return given()
-                .contentType(ContentType.JSON)
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
                 .get(baseURI);
@@ -241,36 +241,31 @@ public class BaseTestSetup {
     public static Response editComment() {
         baseURI = String.format(BASE_URL + EDITED_COMMENT, COMMENT_ID);
 
-        Response response = given()
-                .contentType(ContentType.JSON)
+        return given()
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
                 .put(baseURI);
-        return response;
     }
 
     public static Response deleteComment() {
 
         baseURI = BASE_URL + DELETE_COMMENT;
 
-        Response response = given()
+        return given()
                 .header("Accept", "*/*")
-                .contentType(ContentType.JSON)
+                .contentType(APPLICATION_JSON)
                 .cookie("JSESSIONID", COOKIE_VALUE)
                 .queryParam("commentId", COMMENT_ID)
                 .delete(baseURI);
-
-        return response;
     }
 
     protected static Response likeComment() {
         baseURI = String.format(BASE_URL + LIKED_COMMENT, COMMENT_ID);
 
-        Response response = RestAssured.given()
+        return given()
                 .cookies("JSESSIONID", COOKIE_VALUE)
-                .contentType(ContentType.JSON)
+                .contentType(APPLICATION_JSON)
                 .post(baseURI);
-
-        return response;
     }
 }

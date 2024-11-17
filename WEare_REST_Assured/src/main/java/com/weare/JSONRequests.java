@@ -39,7 +39,7 @@ public class JSONRequests {
             "    \"id\": %s,\n" +
             "    \"username\": \"%s\",\n" +
             "    \"email\": \"%s\",\n" +
-            "    \"firstName\": \"EditedFirstName\",\n" +
+            "    \"firstName\": \"%s\",\n" +
             "    \"lastName\": \"randomLastName\",\n" +
             "    \"sex\": \"MALE\",\n" +
             "    \"birthYear\": \"2024-11-11\",\n" +
@@ -61,5 +61,5 @@ public class JSONRequests {
                     + "\"content\": \"%s\",\n"
                     + "\"picture\": \"No picture\",\n"
                     + "\"public\": true\n"
-                    + "}", EDITED_POST_CONTENT);
+                    + "}", EDIT_COMMENT);
 }

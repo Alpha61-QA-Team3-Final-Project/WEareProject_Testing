@@ -15,10 +15,12 @@ public class CommentsTests extends BaseTestSetup {
         createPost();
         Response response = createComment();
 
-        System.out.println("Response body is " + response.getBody().asPrettyString());
+        String commentID = response.jsonPath().getString("commentId");
+        String commentContent = response.jsonPath().getString("content");
 
         Assert.assertEquals(response.statusCode(), 200, "Expected status code to be 200");
-        Assert.assertTrue(response.getBody().asString().contains(COMMENT_DESCRIPTION), "Expected response body to contains Comment");
+        Assert.assertEquals(commentContent, COMMENT_DESCRIPTION, "Comment content should match the expected value");
+        Assert.assertNotNull(commentID, "Comment ID should not be null");
     }
 
     @Test

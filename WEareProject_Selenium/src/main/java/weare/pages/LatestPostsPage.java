@@ -157,6 +157,7 @@ public class LatestPostsPage extends HomePage {
     public String getLikeButtonValue() {
         WebElement lastLikeButton = driverWait().until(ExpectedConditions.visibilityOfElementLocated(lastPostLikeButton));
         driver().scrollToElement(lastPostLikeButton);
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(lastPostLikeButton));
         String buttonValue = lastLikeButton.getAttribute("value");
 
         return getButtonValue(buttonValue);

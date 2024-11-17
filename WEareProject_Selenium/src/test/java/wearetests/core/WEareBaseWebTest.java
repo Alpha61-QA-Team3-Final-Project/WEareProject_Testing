@@ -4,6 +4,7 @@ import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import testframework.DriverManager;
 import testframework.PropertiesManager;
 import testframework.core.BaseWebTest;
 import weare.pages.*;
@@ -11,7 +12,6 @@ import weare.pages.*;
 public class WEareBaseWebTest extends BaseWebTest {
 
     protected AboutUsPage aboutUsPage;
-    protected AdminHomePage adminHomePage;
     protected HomePage homePage;
     protected LatestPostsPage latestPostsPage;
     protected RegisterPage registerPage;
@@ -20,13 +20,9 @@ public class WEareBaseWebTest extends BaseWebTest {
     protected UserProfilePage userProfilePage;
     protected SearchPage searchPage;
 
-
-
     @BeforeEach
     public void beforeTests() {
-        // perform some code before each test starts
         aboutUsPage = new AboutUsPage();
-        adminHomePage = new AdminHomePage();
         homePage = new HomePage("");
         latestPostsPage = new LatestPostsPage();
         registerPage = new RegisterPage();
@@ -35,31 +31,22 @@ public class WEareBaseWebTest extends BaseWebTest {
         userProfilePage = new UserProfilePage();
         searchPage = new SearchPage();
 
-
-        // Navigate to base page
         driver().get(PropertiesManager.getConfigProperties().getProperty("weareBaseUrl"));
     }
 
-    @BeforeAll
-    public static void beforeAll() {
-        // perform some code before all tests start
-    }
+//    @BeforeAll
+//    public static void beforeAll() {
+//        // perform some code before all tests start
+//    }
 
-    // close driver
     @AfterEach
     public void afterTest() {
         driver().close();
-        // perform some code after each test has finished
     }
 
     @AfterAll
     public static void afterAll() {
-        // perform some code after all tests have finished
+        DriverManager.quitDriver();
     }
 
-    // Extract methods that use multiple pages
-//    public void authenticateWithUser(String username, String pass) {
-//        loginPage.submitLoginForm(username, pass);
-//        inventoryPage.waitForPageTitle();
-//    }
 }

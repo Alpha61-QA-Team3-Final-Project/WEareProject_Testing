@@ -1,6 +1,7 @@
 package testframework;
 
 import dev.failsafe.internal.util.Assert;
+import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 public class Driver implements WebDriver {
 
+    @Getter
     private final WebDriver webDriver;
     private final WebDriverWait webDriverWait;
     private final Actions actions;
@@ -31,9 +33,6 @@ public class Driver implements WebDriver {
         isDisposed = false;
     }
 
-    public WebDriver getWebDriver() {
-        return this.webDriver;
-    }
     public WebDriverWait getDriverWait() {
         return this.webDriverWait;
     }
@@ -122,8 +121,6 @@ public class Driver implements WebDriver {
         return webDriver.manage();
     }
 
-
-    // Add custom Driver methods
     public void scrollToElement(By locator) {
         actions.scrollToElement(webDriver.findElement(locator)).perform();
     }

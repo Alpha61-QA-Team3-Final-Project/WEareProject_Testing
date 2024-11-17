@@ -64,6 +64,7 @@ public class PostsTests extends BaseTestSetup {
         createPost();
         editProfilePost();
         Response response = deletePost();
+
         String responseBody = response.getBody().prettyPrint();
         System.out.println("Successfully deleted post with ID: " + POST_ID);
         Assert.assertEquals(200, response.statusCode(), "Expected status code to be 200");

@@ -13,9 +13,7 @@ public enum TestData {
     UPDATE_BIRTHDAY("11111990"),
     UPDATE_FIRSTNAME(getRandomString(8)),
     UPDATE_LASTNAME(getRandomString(6)),
-    UPDATE_ABOUT_ME(String.format("Hello, my name is %s and I updated my info.", UPDATE_FIRSTNAME)),
-    USER_ACCEPT_CONNECTION_USER("newuserthree"),
-    USER_ACCEPT_CONNECTION_PASSWORD("test123");
+    UPDATE_ABOUT_ME(String.format("Hello, my name is %s and I updated my info.", UPDATE_FIRSTNAME));
 
     private final String value;
     

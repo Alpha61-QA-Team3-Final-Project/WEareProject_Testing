@@ -1,9 +1,6 @@
 package wearetests.core;
 
 import org.apache.commons.lang3.RandomStringUtils;
-import wearetests.core.Constants.*;
-
-import java.util.Random;
 
 public class RandomDataGenerator {
 
@@ -11,7 +8,7 @@ public class RandomDataGenerator {
         return RandomStringUtils.random(length, true, false);
     }
     public static String generateEmail() {
-        String randomUsername = getRandomString(5);
+        String randomUsername = getRandomString(10);
         return randomUsername + "@test.com";
     }
 

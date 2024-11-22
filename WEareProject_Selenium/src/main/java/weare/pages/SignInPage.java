@@ -13,11 +13,15 @@ public class SignInPage extends HomePage {
     private final By usernameField = By.id("username");
     private final By passwordField = By.id("password");
     private final By loginButton = By.xpath("//input[@value='Login']");
+    private final By wrongUserOrPassMessage = By.xpath("//i[normalize-space()='Wrong username or password.']");
 
     public void signIn(String username, String password) {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(loginButton)).click();
+    }
+    public By getLoginErrorMessage() {
+       return wrongUserOrPassMessage;
     }
 }
 

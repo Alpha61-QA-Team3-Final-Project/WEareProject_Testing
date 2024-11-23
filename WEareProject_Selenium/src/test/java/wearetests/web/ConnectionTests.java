@@ -1,5 +1,8 @@
 package wearetests.web;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import testframework.DriverManager;
 import weare.pages.SearchPage;
@@ -9,10 +12,12 @@ import wearetests.core.RandomDataGenerator;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
 
+@Epic("connection Tests")
 public class ConnectionTests extends WEareBaseWebTest {
 
-
     @Test
+    @Feature("User Connects Other User")
+    @Description("Test the functionality of a user sending a connection request to another user.")
     public void userConnectsOtherUserTest() {
         homePage.navigate();
         homePage.clickRegister();
@@ -32,6 +37,9 @@ public class ConnectionTests extends WEareBaseWebTest {
     }
 
     @Test
+    @Feature("User Connect Request")
+    @Description("Test the functionality of a user sending a connection request. " +
+            "Verifies that the connection request button works and sends a request.")
     public void userConnectRequestTest() {
         homePage.navigate();
         homePage.clickRegister();
@@ -50,6 +58,9 @@ public class ConnectionTests extends WEareBaseWebTest {
     }
 
     @Test
+    @Feature("User Connect Accept")
+    @Description("Test the functionality of a user accepting a connection request." +
+            "Verifies that a user can accept the request and the connection is established.")
     public void userConnectAcceptTest() {
         //User1
         homePage.navigate();
@@ -89,6 +100,9 @@ public class ConnectionTests extends WEareBaseWebTest {
     }
 
     @Test
+    @Feature("User Disconnect")
+    @Description("Test the functionality of disconnecting from a user. " +
+            "Verifies that a user can disconnect from another user.")
     public void userDisconnectsTest() {
         //User 1
         homePage.navigate();

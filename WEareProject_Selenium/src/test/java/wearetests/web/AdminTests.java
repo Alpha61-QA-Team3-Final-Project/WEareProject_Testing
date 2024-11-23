@@ -1,5 +1,8 @@
 package wearetests.web;
 
+import io.qameta.allure.Description;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
 import org.junit.jupiter.api.Test;
 import testframework.DriverManager;
 import weare.pages.HomePage;
@@ -8,9 +11,13 @@ import weare.pages.UserHomePage;
 import wearetests.core.AssertionUtils;
 import wearetests.core.WEareBaseWebTest;
 import wearetests.enums.TestData;
-
+@Epic("Admin Tests")
 public class AdminTests extends WEareBaseWebTest {
+
     @Test
+    @Feature("Admin Registration")
+    @Description("Tests the registration functionality for the admin user." +
+            "Verifies that the admin user can successfully register and see the welcome message.")
     public void adminRegistrationTest() {
         homePage.navigate();
         homePage.clickRegister();
@@ -23,6 +30,9 @@ public class AdminTests extends WEareBaseWebTest {
     }
 
     @Test
+    @Feature("Admin Login")
+    @Description("Tests the login functionality for the admin user. " +
+            "Verifies that the admin can successfully log in and access the homepage.")
     public void adminLoginTest() {
         homePage.navigate();
         homePage.clickRegister();
@@ -37,6 +47,9 @@ public class AdminTests extends WEareBaseWebTest {
     }
 
     @Test
+    @Feature("Admin Logout")
+    @Description("Tests the logout functionality for the admin user. " +
+            "Verifies that the admin user can log out successfully and sees the logout confirmation message.")
     public void adminLogoutTest() {
         homePage.navigate();
         homePage.clickRegister();
@@ -49,6 +62,5 @@ public class AdminTests extends WEareBaseWebTest {
         //Assert
         AssertionUtils.assertElementVisible(DriverManager.getDriver(), "xpath",
                 UserHomePage.getYouAreLoggedOutMessage());
-        System.out.println("Logout user: " + TestData.REGISTER_USERNAME.getValue());
     }
 }

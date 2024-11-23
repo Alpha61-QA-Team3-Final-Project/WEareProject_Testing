@@ -11,13 +11,4 @@ public class RandomDataGenerator {
         String randomUsername = getRandomString(10);
         return randomUsername + "@test.com";
     }
-
-    public static void main(String[] args) {
-//        System.out.println("Generated Register Username: " + REGISTER_USERNAME.getValue());
-//        System.out.println("Generated Register Email: " + REGISTER_EMAIL.getValue());
-//
-//        System.out.println("Login Username: " + USER_USERNAME.getValue());
-//        System.out.println("Login Email: " + USER_EMAIL.getValue());
-    }
-
 }

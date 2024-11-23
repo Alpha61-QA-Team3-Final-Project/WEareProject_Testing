@@ -34,6 +34,11 @@ public class WEareBaseWebTest extends BaseWebTest {
         driver().get(PropertiesManager.getConfigProperties().getProperty("weareBaseUrl"));
     }
 
+//    @BeforeAll
+//    public static void beforeAll() {
+//        // perform some code before all tests start
+//    }
+
     @AfterEach
     public void afterTest() {
         driver().close();

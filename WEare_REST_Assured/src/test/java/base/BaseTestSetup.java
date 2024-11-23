@@ -1,6 +1,7 @@
 package base;
 
 import com.weare.RandomDataGenerator;
+import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 import io.restassured.config.EncoderConfig;
 import io.restassured.http.ContentType;
@@ -28,6 +29,7 @@ public class BaseTestSetup {
         RestAssured.baseURI = BASE_URL;
 
         request = RestAssured.given()
+                .filter(new AllureRestAssured())
                 .header("Accept", APPLICATION_JSON)
                 .header("Content-Type", APPLICATION_JSON);
 
@@ -38,7 +40,8 @@ public class BaseTestSetup {
 
         RestAssured.authentication = RestAssured.preemptive().basic(RANDOM_USERNAME, USER_PASSWORD);
 
-        ValidatableResponse responseBody = RestAssured.given()
+        ValidatableResponse responseBody = given()
+                .filter(new AllureRestAssured())
                 .header("Content-Type", "application/x-www-form-urlencoded")
                 .queryParam("username", RANDOM_USERNAME)
                 .queryParam("password", USER_PASSWORD)
@@ -61,6 +64,7 @@ public class BaseTestSetup {
                 RANDOM_USERNAME);
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .body(registrationBody)
                 .post(baseURI);
@@ -76,6 +80,7 @@ public class BaseTestSetup {
         String profileBody = String.format(PROFILE_BODY, USER_ID, RANDOM_USERNAME, RANDOM_EMAIL, RANDOM_USERNAME);
 
         return given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .queryParam("name", name)
@@ -87,8 +92,9 @@ public class BaseTestSetup {
     protected static Response createPost() {
         baseURI = BASE_URL + CREATE_POST_ENDPOINT;
 
-        Response response = given().
-                contentType(APPLICATION_JSON)
+        Response response = given()
+                .filter(new AllureRestAssured())
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE).
                 body(POST_BODY)
@@ -103,6 +109,7 @@ public class BaseTestSetup {
         baseURI = BASE_URL + GET_ALL_POSTS_ENDPOINT;
 
         return given()
+                .filter(new AllureRestAssured())
                 .queryParam("sorted", "true")
                 .queryParam("unsorted", "false")
                 .get(baseURI);
@@ -111,19 +118,22 @@ public class BaseTestSetup {
     protected static Response editProfilePost() {
         baseURI = BASE_URL + EDIT_POST;
 
-        return RestAssured.given().
-                cookies("JSESSIONID", COOKIE_VALUE).
-                baseUri(baseURI).
-                contentType(APPLICATION_JSON).
-                queryParam("postId", POST_ID).
-                body(POST_EDIT).
-                put(baseURI);
+        return RestAssured.given()
+                .filter(new AllureRestAssured())
+                .cookies("JSESSIONID", COOKIE_VALUE)
+                .baseUri(baseURI)
+                .contentType(APPLICATION_JSON)
+                .queryParam("postId", POST_ID)
+                .body(POST_EDIT)
+                .put(baseURI);
     }
 
     protected static Response likePost() {
         baseURI = BASE_URL + String.format(LIKE_POST, POST_ID);
 
-        return RestAssured.given().cookies("JSESSIONID", COOKIE_VALUE)
+        return RestAssured.given()
+                .filter(new AllureRestAssured())
+                .cookies("JSESSIONID", COOKIE_VALUE)
                 .contentType(ContentType.JSON)
                 .post(baseURI);
     }
@@ -132,9 +142,11 @@ public class BaseTestSetup {
     protected static Response deletePost() {
         baseURI = BASE_URL + DELETE_POSTS;
 
-        return given().cookies("JSESSIONID", COOKIE_VALUE).
-                queryParam("postId", POST_ID).
-                delete(baseURI);
+        return given()
+                .filter(new AllureRestAssured())
+                .cookies("JSESSIONID", COOKIE_VALUE)
+                .queryParam("postId", POST_ID)
+                .delete(baseURI);
     }
 
     protected static Response sendRequest() {
@@ -142,7 +154,9 @@ public class BaseTestSetup {
 
         String requestBody = String.format(SEND_CONNECTION_REQ_BODY, USER_ID_RECEIVER, USERNAME_RECEIVER);
 
-        return given().contentType(APPLICATION_JSON)
+        return given()
+                .filter(new AllureRestAssured())
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
                 .queryParam("principal", RANDOM_USERNAME)
@@ -153,7 +167,9 @@ public class BaseTestSetup {
     protected static Response approveRequest() {
         baseURI = BASE_URL + CONNECTION_REQUEST_ENDPOINT + USER_ID_RECEIVER + CONNECTION_REQUEST_APPROVE_ENDPOINT;
 
-        return given().contentType(APPLICATION_JSON)
+        return given()
+                .filter(new AllureRestAssured())
+                .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE_RECEIVER)
                 .queryParam("requestId", CONNECTION_ID)
@@ -167,12 +183,13 @@ public class BaseTestSetup {
 
         ValidatableResponse responseBody =
                 given()
-                .header("Content-Type", "application/x-www-form-urlencoded")
-                .queryParam("username", USERNAME_RECEIVER)
-                .queryParam("password", USER_PASSWORD)
-                .post(baseURI)
-                .then()
-                .statusCode(302);
+                        .filter(new AllureRestAssured())
+                        .header("Content-Type", "application/x-www-form-urlencoded")
+                        .queryParam("username", USERNAME_RECEIVER)
+                        .queryParam("password", USER_PASSWORD)
+                        .post(baseURI)
+                        .then()
+                        .statusCode(302);
 
         COOKIE_VALUE_RECEIVER = responseBody.extract().cookies().get("JSESSIONID");
     }
@@ -187,6 +204,7 @@ public class BaseTestSetup {
                 USERNAME_RECEIVER);
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .body(registrationBody)
                 .post(baseURI);
@@ -200,6 +218,7 @@ public class BaseTestSetup {
         baseURI = BASE_URL + CONNECTION_REQUEST_ENDPOINT + USER_ID_RECEIVER + REQUEST;
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE_RECEIVER)
@@ -216,6 +235,7 @@ public class BaseTestSetup {
         String commentBody = String.format(COMMENT_BODY, COMMENT_DESCRIPTION, POST_ID, USER_ID);
 
         Response response = given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookies("JSESSIONID", COOKIE_VALUE)
@@ -232,6 +252,7 @@ public class BaseTestSetup {
 
 
         return given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
@@ -242,6 +263,7 @@ public class BaseTestSetup {
         baseURI = String.format(BASE_URL + EDITED_COMMENT, COMMENT_ID);
 
         return given()
+                .filter(new AllureRestAssured())
                 .contentType(APPLICATION_JSON)
                 .header("Accept", "*/*")
                 .cookie("JSESSIONID", COOKIE_VALUE)
@@ -253,6 +275,7 @@ public class BaseTestSetup {
         baseURI = BASE_URL + DELETE_COMMENT;
 
         return given()
+                .filter(new AllureRestAssured())
                 .header("Accept", "*/*")
                 .contentType(APPLICATION_JSON)
                 .cookie("JSESSIONID", COOKIE_VALUE)
@@ -264,6 +287,7 @@ public class BaseTestSetup {
         baseURI = String.format(BASE_URL + LIKED_COMMENT, COMMENT_ID);
 
         return given()
+                .filter(new AllureRestAssured())
                 .cookies("JSESSIONID", COOKIE_VALUE)
                 .contentType(APPLICATION_JSON)
                 .post(baseURI);

@@ -1,6 +1,8 @@
 package tests;
 
 import base.BaseTestSetup;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 import io.restassured.response.Response;
 import io.restassured.response.ValidatableResponse;
 
@@ -8,7 +10,6 @@ import org.junit.jupiter.api.Test;
 import org.testng.Assert;
 
 import static com.weare.Constants.*;
-import static com.weare.Endpoints.*;
 
 
 class UsersTests extends BaseTestSetup {
@@ -16,6 +17,8 @@ class UsersTests extends BaseTestSetup {
     Response response;
 
     @Test
+    @Story("Login Test")
+    @Description("Test Description: Verify login functionality")
     public void loginAndGetCookieTest() {
         ValidatableResponse responseBody = loginUser();
 
@@ -26,13 +29,15 @@ class UsersTests extends BaseTestSetup {
     }
 
     @Test
+    @Story("User Registration Test")
+    @Description("Test Description: Verify the creation and registration of a new user")
     public void registerUserTest() {
 
         response = createAndRegisterUser();
 
         String responseUsername = response.getBody().asString().split(" ")[3];
         String responseID = response.getBody().asString().split(" ")[6];
-        //USER_ID
+
         //Assert
         Assert.assertEquals(response.statusCode(), 200, "Expected status code to be 200");
         Assert.assertNotNull(responseID, "Response should contain 'id'");
@@ -41,6 +46,8 @@ class UsersTests extends BaseTestSetup {
     }
 
     @Test
+    @Story("Update User Profile Test")
+    @Description("Test Description: Verify updating user profile details")
     public void updateUserProfileTest() {
         createAndRegisterUser();
         loginUser();

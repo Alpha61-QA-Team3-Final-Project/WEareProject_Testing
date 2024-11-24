@@ -30,7 +30,7 @@ We have adopted the **Agile Scrum methodology**, organizing our work into sprint
 - To view Newman report open .html file in the **REPORT** folder in **WEare_Postman_API**.
 
 ### **Viewing Allure Reports**
-To view the generated Allure report, follow these steps:
+- To view the generated Allure report, follow these steps:
 1. Open your terminal;
 2. Navigate to the project directory;
 3. Run the following command:

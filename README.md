@@ -20,7 +20,7 @@ We have adopted the **Agile Scrum methodology**, organizing our work into sprint
    Includes **WEareProject_Selenium** for UI testing, **REPORT** and **ALLURE_REPORT** folders.
 
 - **Jira Report**  
-  Includes templates used for creating Jira test cases and reports, including the Jira Test Coverage report and Test Plan report.
+  Includes .png reports.
 
 - **Performance Testing**  
   This folder contains statistics of performance testing conducted with **JMeter**.

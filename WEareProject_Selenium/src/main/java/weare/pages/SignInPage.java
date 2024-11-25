@@ -17,6 +17,7 @@ public class SignInPage extends HomePage {
     public void signIn(String username, String password) {
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(usernameField)).sendKeys(username);
         driverWait().until(ExpectedConditions.visibilityOfElementLocated(passwordField)).sendKeys(password);
-        driver().findElement(loginButton).click();
+        driverWait().until(ExpectedConditions.visibilityOfElementLocated(loginButton)).click();
     }
 }
+

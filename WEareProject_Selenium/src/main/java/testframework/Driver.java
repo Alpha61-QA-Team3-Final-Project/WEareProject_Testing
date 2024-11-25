@@ -1,6 +1,7 @@
 package testframework;
 
 import dev.failsafe.internal.util.Assert;
+import lombok.Getter;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.junit.jupiter.api.Assertions;
@@ -17,6 +18,7 @@ import java.util.Set;
 
 public class Driver implements WebDriver {
 
+    @Getter
     private final WebDriver webDriver;
     private final WebDriverWait webDriverWait;
     private final Actions actions;
@@ -31,9 +33,6 @@ public class Driver implements WebDriver {
         isDisposed = false;
     }
 
-    public WebDriver getWebDriver() {
-        return this.webDriver;
-    }
     public WebDriverWait getDriverWait() {
         return this.webDriverWait;
     }
@@ -122,52 +121,6 @@ public class Driver implements WebDriver {
         return webDriver.manage();
     }
 
-    //public void assertion(String locator){
-        //WebElement element = getWebDriver().findElement(By.id(locator));  // Locate the element first
-        //if (!element.isDisplayed()) {
-            //throw new AssertionError("Element is not visible as expected.");
-        //}
-    //}
-
-    public static void assertElementVisible(WebDriver driver, String locatorType, String locatorValue) {
-        WebElement element;
-
-        switch (locatorType.toLowerCase()) {
-            case "id":
-                element = driver.findElement(By.id(locatorValue));
-                break;
-            case "class":
-                element = driver.findElement(By.className(locatorValue));
-                break;
-            case "css":
-                element = driver.findElement(By.cssSelector(locatorValue));
-                break;
-            case "xpath":
-                element = driver.findElement(By.xpath(locatorValue));
-                break;
-            case "name":
-                element = driver.findElement(By.name(locatorValue));
-                break;
-            case "tag":
-                element = driver.findElement(By.tagName(locatorValue));
-                break;
-            case "linktext":
-                element = driver.findElement(By.linkText(locatorValue));
-                break;
-            case "partiallinktext":
-                element = driver.findElement(By.partialLinkText(locatorValue));
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid locator type: " + locatorType);
-        }
-
-        if (!element.isDisplayed()) {
-            throw new AssertionError("Element is not visible as expected.");
-        }
-    }
-
-
-    // Add custom Driver methods
     public void scrollToElement(By locator) {
         actions.scrollToElement(webDriver.findElement(locator)).perform();
     }

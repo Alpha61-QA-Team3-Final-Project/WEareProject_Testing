@@ -54,6 +54,12 @@ After the WEare application is running locally (on localhost:8081), you can proc
 - After importing, select the imported Postman collection.
 - right-click on the collection and select "Run" to execute the entire collection.
 
+4. Running Performance Tests with JMeter:
+- Open Jmeter.
+- Navigate to the Performance Testing folder and open the JMX file in JMeter.
+- Click the Start button (green play icon) in JMeter to run the test.
+- View the results in JMeter's listeners (e.g., View Results Tree, Summary Report).
+
 ### **Viewing Jacoco and Newman Reports**
 - To view Jacoco reports open .html file in the **REPORT** folders in **WEareProject_Selenium** and - **WEare_REST_Assured**.
 - To view Newman report open .html file in the **REPORT** folder in **WEare_Postman_API**.
